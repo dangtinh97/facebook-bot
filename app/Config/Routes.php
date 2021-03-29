@@ -33,6 +33,17 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/login', 'Auth\Login::login');
+$routes->post('/login', 'Auth\Login::attempt');
+$routes->get('/accounts', 'User::index');
+$routes->post('/accounts/check', 'User::check');
+$routes->post('/accounts/store', 'User::store');
+$routes->get('/accounts/list', 'User::listAccount');
+$routes->get('/setting/(:num)', 'ConfigAccount::index/$1');
+$routes->post('/setting/(:num)/edit', 'ConfigAccount::update/$1');
+$routes->get('/comment_group/(:num)', 'ConfigAccount::commentGroup/$1');
+$routes->post('/comment_group/(:num)', 'ConfigAccount::commentGroupUpdate/$1');
+$routes->get('/cron/comment_group', 'Cron\CommentGroupApi::init');
 
 /*
  * --------------------------------------------------------------------

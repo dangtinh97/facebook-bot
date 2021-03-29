@@ -20,7 +20,8 @@ use Psr\Log\LoggerInterface;
 
 class BaseController extends Controller
 {
-	/**
+
+    /**
 	 * An array of helpers to be loaded automatically upon
 	 * class instantiation. These helpers will be available
 	 * to all other controllers that extend BaseController.
@@ -46,4 +47,24 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
 	}
+
+	public function getParamString($param){
+        helper(['security']);
+	    return trim(encode_php_tags($_REQUEST[$param]??''));
+    }
+
+    public function responseError($status=201,$content ='Lỗi không xác định',$data=[]){
+	    return json_encode([
+	        'status'=>$status,
+            'content'=>$content,
+            'data'=>(object)$data
+        ]);
+    }
+    public function responseSuccess($status=200,$content ='Thành công',$data=[]){
+        return json_encode([
+            'status'=>$status,
+            'content'=>$content,
+            'data'=>(object)$data
+        ]);
+    }
 }
